@@ -12,13 +12,19 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/jquery.js"></script>
 </head>
+<style>
+
+</style>
 <body>
-   <div class="container">
+<jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
+   <div class="container" id="write-form">
        <form action="/board/save" method="post" name="boardForm">
            <input type="text" name="boardWriter" placeholder="작성자" class="form-control">
            <input type="text" name="boardPass" placeholder="글비밀번호" class="form-control">
            <input type="text" name="boardTitle" placeholder="제목" class="form-control">
-           <input type="text" name="boardContents" placeholder="글내용" class="form-control">
+<%--           <input type="text" name="boardContents" placeholder="글내용" class="form-control"> --%>
+           <textarea name="boardContents" placeholder="내용을 입력하세요" cols="30" rows="10" class="form-control"></textarea>
+
 
            <input type="submit" class="btn btn-primary" value="글쓰기" >
        </form>

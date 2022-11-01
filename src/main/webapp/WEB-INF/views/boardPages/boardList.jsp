@@ -13,32 +13,40 @@
     <title>boardList.jsp</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="/resources/js/jquery.js"></script>
-
+  <style>
+      #list{
+          width: 800px;
+          margin-top: 50px;
+      }
+  </style>
 </head>
 <body>
-<div class="container">
-    <table class="table table-striped table-hover">
+<div class="container" id="list">
+    <table class="table table-striped table-hover text-center">
         <tr>
             <th>글번호</th>
-            <th>작성자</th>
+<%--            <th>작성자</th>--%>
             <th>제목</th>
             <th>글내용</th>
-            <th>조회</th>
+<%--            <th>조회</th>--%>
             <th>조회수</th>
             <th>날짜</th>
-            <th>삭제</th>
-            <th>수정</th>
+<%--            <th>삭제</th>--%>
+<%--            <th>수정</th>--%>
         </tr>
   <c:forEach items="${boardList}" var="board">
       <tr>
       <td>${board.id}</td>
-
+          <td>
+              <a href="/board?id=S${board.id}">${board.boardTitle}</a>
+          </td>
       <td>${board.boardWriter}</td>
-      <td>${board.boardTitle}</td>
+          <td>${board.boardCreatedDate}</td>
           <td>${board.boardContents}</td>
-          <td> <a href="/board?id=${board.id}">조회</a></td>
           <td>${board.boardHits}</td>
-      <td>${board.boardDate}</td>
+<%--          <td> <a href="/board?id=${board.id}">조회</a></td>--%>
+
+
 
 
           

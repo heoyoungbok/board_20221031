@@ -30,3 +30,7 @@
 </script>
 </html>
 
+<%-- 글작석 회원가입
+  /boardSave       /memberSave
+  /board/save       /member/save ---%>
+

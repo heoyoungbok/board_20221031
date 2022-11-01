@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -15,8 +17,8 @@ public class BoardDTO {
    private String boardPass;
    private String boardTitle;
    private String boardContents;
-   private String boardDate;
-   private int boardHits = 0;
+   private LocalDateTime boardCreatedDate;
+   private int boardHits ;
 
 
 
