@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -32,14 +33,11 @@ public class BoardController {
 
 
     @PostMapping("/save")
-    public String boardSave(@ModelAttribute BoardDTO boardDTO) {
-        boolean saveResult = boardService.boardSave(boardDTO);
+    public String boardSave(@ModelAttribute BoardDTO boardDTO) throws IOException {    // 반드시 post 여야 한다
+         boardService.boardSave(boardDTO);
 
-        if (saveResult){
             return "redirect:/board/";
-        }else{
-            return "saveFail";
-        }
+
 
     }
 
@@ -71,7 +69,7 @@ public class BoardController {
 
 
 //       = boardService.findById(id);
-
+           System.out.println("조회: boardDTO = " + boardDTO); // 조인 확인 2개 테이블을 동시에 봐야 하기때문에 조인이라는 DB 명령문을 사용  파일 2개이상인 경우는 테이블을 분리
         return "boardPages/boardDetail";
        }
 

@@ -14,16 +14,28 @@ public class BoardRepository {
     @Autowired
     private SqlSessionTemplate sql;
 
-    public int boardSave(BoardDTO boardDTO) {
-        return sql.insert("Board.boardSave",boardDTO);
+    public BoardDTO boardSave(BoardDTO boardDTO) {
+        System.out.println("insert 전 boardDTO = " + boardDTO);
+        sql.insert("Board.boardSave",boardDTO);
+        System.out.println("insert 후 boardDTO = " + boardDTO); // db에서 외래키로 참조해서 id가 한번더 필요함
+        return boardDTO;
     }
 
+    public void saveFileName(BoardDTO boardDTO){
+        sql.insert("Board.saveFile",boardDTO);
+    }
     public List<BoardDTO> findAll() {
         return sql.selectList("Board.findAll");
     }
 
     public BoardDTO findById(Long id) {
-        return sql.selectOne("Board.findById",id);
+        BoardDTO boardDTO = sql.selectOne("Board.findById",id);
+        if (boardDTO.getFileAttached() == 1) {
+            return sql.selectOne("Board.findById", id);
+
+        }else {
+            return boardDTO;
+        }
     }
 
     public void updateHits(Long id) {

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -20,7 +21,14 @@ public class BoardDTO {
    private String boardContents;
    private Timestamp boardCreatedDate;
    private int boardHits ;
-
-
+   // 파일 담기위한 필드
+   private MultipartFile boardFile;
+   // 원본파일 이름용 필드
+   private String originalFileName;
+   //서버관리 이름용 필드
+   private String storedFileName;
+   
+   // 파일 첨부 여부
+   private int fileAttached;
 
 }

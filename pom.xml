@@ -103,7 +103,7 @@
       <version>9.0.31</version>
     </dependency>
 
-    <!-- fileupload -->
+    <!-- fileupload  파일 업로드 -->
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
