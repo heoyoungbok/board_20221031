@@ -23,15 +23,38 @@ public class BoardService {
 
     public List<BoardDTO> findAll() {
 
-        return boardRepository.findAll();
+        List<BoardDTO> boardDTOList = boardRepository.findAll();
+        return boardDTOList;
     }
 
     public BoardDTO findById(Long id) {
 
-
+        // 조회수 증가
+            // 조회수 증가 쿼리 먼저 치고
+        // 상세 내용 가져오기 리턴
 //        int hits = boardHit +1;
 
         return boardRepository.findById(id);
+    }
+
+
+    public void updateHits(Long id){
+        boardRepository.updateHits(id);
+    }
+
+
+
+    public void update(BoardDTO boardDTO) {
+       boardRepository.update(boardDTO);
+//        if(result > 0){
+//            return  true;
+//        }else {
+//            return  false;
+//        }
+    }
+
+    public void delete(Long id) {
+        boardRepository.delete(id);
     }
 }
 

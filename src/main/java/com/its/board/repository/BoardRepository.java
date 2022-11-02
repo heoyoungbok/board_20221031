@@ -26,6 +26,18 @@ public class BoardRepository {
         return sql.selectOne("Board.findById",id);
     }
 
+    public void updateHits(Long id) {
+        sql.update("Board.updateHits",id);  // 조회수 쿼리 별개로 처리 파인드 바이 아디랑 별개
+    }
+
+    public void update(BoardDTO boardDTO) {
+         sql.update("Board.update",boardDTO);
+    }
+
+    public void delete(Long id) {
+        sql.delete("Board.delete",id);
+    }
+
 //    public void updateHit(int num) {
 //        sql.update("Board.updateHit",num);
 //    }

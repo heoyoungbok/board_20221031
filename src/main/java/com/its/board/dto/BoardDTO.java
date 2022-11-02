@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -17,7 +18,7 @@ public class BoardDTO {
    private String boardPass;
    private String boardTitle;
    private String boardContents;
-   private LocalDateTime boardCreatedDate;
+   private Timestamp boardCreatedDate;
    private int boardHits ;
 
 
