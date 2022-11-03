@@ -59,6 +59,10 @@ public class BoardRepository {
         return sql.selectOne("Board.boardCount");
     }
 
+    public List<BoardDTO> search(Map<String, String> searchParams) {
+        return sql.selectList("Board.search",searchParams);
+    }
+
 //    public void updateHit(int num) {
 //        sql.update("Board.updateHit",num);
 //    }

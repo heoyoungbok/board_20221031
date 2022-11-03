@@ -16,7 +16,9 @@
 <body>
     <button class="btn-primary" onclick="boardSave()">게시판</button>
     <button class="btn-warning" onclick="boardList()">글목록</button>
-
+    <a href="/board/paging">페이징목록</a>
+    <a href="/board/paging?page=10">10페이지</a>
+    <a href="/board/paging?page=3">3페이지</a>
 </body>
 <script>
     const boardSave = () => {

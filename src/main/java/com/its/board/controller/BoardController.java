@@ -1,6 +1,7 @@
 package com.its.board.controller;
 
 import com.its.board.dto.BoardDTO;
+import com.its.board.dto.CommentDTO;
 import com.its.board.dto.PageDTO;
 import com.its.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/save")  // @GetMapping("/board/save")  @RequestMapping x 겟이든 포스트든 다 받고 /board 라는걸 반응 /board/board/save 라고 반응
+    @GetMapping("/save")
+    // @GetMapping("/board/save")  @RequestMapping x 겟이든 포스트든 다 받고 /board 라는걸 반응 /board/board/save 라고 반응
     public String saveForm() {
         return "boardPages/boardSave"; // 뷰즈 보드페이지 / 보드세이브
     }
@@ -32,12 +34,11 @@ public class BoardController {
 //
 
 
-
     @PostMapping("/save")
     public String boardSave(@ModelAttribute BoardDTO boardDTO) throws IOException {    // 반드시 post 여야 한다
-         boardService.boardSave(boardDTO);
+        boardService.boardSave(boardDTO);
 
-            return "redirect:/board/";
+        return "redirect:/board/";
 
 
     }
@@ -52,75 +53,71 @@ public class BoardController {
 
     // 페이징목록
     @GetMapping("/paging")
-    public String paging(Model model, @RequestParam(value = "page",required = false,defaultValue = "1") int page){
-      // 해당 페이지에서 보여줄 글 목록
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        // 해당 페이지에서 보여줄 글 목록
         List<BoardDTO> pagingList = boardService.pagingList(page);
-       //하단 페이지 번호 표현을 위한 데이터
-      PageDTO pageDTO = boardService.pagingParam(page);
-       model.addAttribute("boardList",pagingList);
-        model.addAttribute("paging",pageDTO);
+        //하단 페이지 번호 표현을 위한 데이터
+        PageDTO pageDTO = boardService.pagingParam(page);
+        model.addAttribute("boardList", pagingList);
+        model.addAttribute("paging", pageDTO);
 //        System.out.println("model = " + model + ", page = " + page);
-      return "boardPages/boardPaging" ;
+        return "boardPages/boardPaging";
     }
 
 
-
-             // 상세조회: /board?id=  겟맵핑만 사용
-       @GetMapping
-       public String findById(@RequestParam("id")  Long id, Model model,
+    // 상세조회: /board?id=  겟맵핑만 사용
+    @GetMapping
+    public String findById(@RequestParam("id") Long id, Model model,
 //
-                              @RequestParam(value = "page",required = false,defaultValue = "1") int page){
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 //        boardService.updateHit(num);
 //           int  hits = hits +1;
 
-          boardService.updateHits(id);
+        boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
-        model.addAttribute("board",boardDTO);
-        model.addAttribute("page",page);
-
-
+        model.addAttribute("board", boardDTO);
+        model.addAttribute("page", page);
 
 
 //       = boardService.findById(id);
-           System.out.println("조회: boardDTO = " + boardDTO); // 조인 확인 2개 테이블을 동시에 봐야 하기때문에 조인이라는 DB 명령문을 사용  파일 2개이상인 경우는 테이블을 분리
+        System.out.println("조회: boardDTO = " + boardDTO); // 조인 확인 2개 테이블을 동시에 봐야 하기때문에 조인이라는 DB 명령문을 사용  파일 2개이상인 경우는 테이블을 분리
         return "boardPages/boardDetail";
-       }
+    }
 
 
-
-       @GetMapping("/deleteCheck")
-       public String deleteCheck(@RequestParam("id") Long id, Model model){
+    @GetMapping("/deleteCheck")
+    public String deleteCheck(@RequestParam("id") Long id, Model model) {
         BoardDTO boardDTO = boardService.findById(id);
-        model.addAttribute("board",boardDTO);
+        model.addAttribute("board", boardDTO);
         return "boardPages/deleteCheck";
-       }
-//return "redirect:/board";
-        @GetMapping("/delete")
-        public String delete(@RequestParam("id")Long id){
+    }
+
+    //return "redirect:/board";
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
         boardService.delete(id);
         return "redirect:/board/";
-        }
+    }
 
 
-
-      // 수정화면 요청
-       @GetMapping("/update")
-       public String updateForm(@RequestParam("id") Long id,Model model){  //데이터를 주는게 없엇음 (404에러)
-       BoardDTO boardDTO = boardService.findById(id);
-       model.addAttribute("board",boardDTO);
+    // 수정화면 요청
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("id") Long id, Model model) {  //데이터를 주는게 없엇음 (404에러)
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("board", boardDTO);
         return "boardPages/boardUpdate";
-       }
+    }
 
 
-        //수정처리
-       @PostMapping("/update")
-     public String update(@ModelAttribute BoardDTO boardDTO,Model model) {
-           boardService.update(boardDTO);
-           BoardDTO dto = boardService.findById(boardDTO.getId());
-           model.addAttribute("board", dto);
-           return "boardPages/boardDetail";
-           // 수정이 처리 후 상세페이지 출력
-           //redirect  상세페이지 요청
+    //수정처리
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+        boardService.update(boardDTO);
+        BoardDTO dto = boardService.findById(boardDTO.getId());
+        model.addAttribute("board", dto);
+        return "boardPages/boardDetail";
+        // 수정이 처리 후 상세페이지 출력
+        //redirect  상세페이지 요청
 //         if (result){
 //             return "redirect:/board?id=" + boardDTO.getId();   // 조회수가 자동적으로 올라감
 //             //db에서 가져와서 boardDetail 출력
@@ -129,9 +126,18 @@ public class BoardController {
 //         }
 ////            return "boardPages/boardDetail";
 //           "redirect:/board?id="+boardDTO.getId();
-       }
+    }
 
-       }
+    @GetMapping("/search")
+    public String search(@RequestParam("type") String type,
+                         @RequestParam("q") String q, Model model) {
+        List<BoardDTO> searchList = boardService.search(type, q);
+        model.addAttribute("boardList", searchList);
+        return "boardPages/boardList";
+    }
+
+
+}
 
 //    @GetMapping("/update")
 //    public String updateForm(){

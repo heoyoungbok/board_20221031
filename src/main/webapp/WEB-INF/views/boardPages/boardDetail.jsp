@@ -19,6 +19,10 @@
             width: 800px;
             margin-top: 50px;
         }
+        #comment-write{
+            width:  600px;
+            
+        }
     </style>
 </head>
 <body>
@@ -70,6 +74,17 @@
        <button class="btn btn-warning" onclick="updateFn()">수정</button>
        <button class="btn btn-danger" onclick="deleteFn()">삭제</button>
    </div>
+   <div class="container mt-5">    
+       <div id="comment-write" class="input-group mb-3">
+           <input type="text" id="commentWhite" name="commentWhite" class="form-control" placeholder="작성자">
+         <label for="commentWhite">작성</label>
+       </div>
+       <div class="form-floating">
+               <input type="text" id="commentContents" name="commentContents" class="form-control" placeholder="내용">
+               <label for="commentContents">내용</label>
+           </div>
+       <button id="comment-write-btn" class="btn btn-secondary" onclick="commentWrite()">댓글작성</button>
+       </div>
 </body>
 <script>
     const listFn = () => {
@@ -86,6 +101,31 @@
         const id ='${board.id}';
       location.href="/board/delete?id="+id;
     }
+    
+    const commentWrite = () => {
+
+        const commentCk = document.getElementById("commentWhite,commentContents");
+        const commentArea = document.getElementById("comment-write-btn");
+
+
+        $.ajax({
+            type:"post",
+            url:"/comment/save",
+            data:{id:commentCk},
+            dataType:"text",
+            success:function (result){
+                console.log("checkResult",result);
+                commentArea.innerText = result;
+            },
+         error:function (){
+           console.log("실패");
+         }
+        });
+
+
+    }
+    
+    
 </script>
 
 </html>
