@@ -73,7 +73,8 @@
 </body>
 <script>
     const listFn = () => {
-      location.href="/board/";
+        const page ='${page}';
+      location.href="/board/paging?page="+page; //페이지 값을 넘겨준다 (페이지 목록을 그대로 돌아오는 값)
     }
     const updateFn = () => {
          // 글번호 작성자      제목과 글내용만 수정가능하게끔

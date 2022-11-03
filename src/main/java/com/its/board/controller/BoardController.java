@@ -1,6 +1,7 @@
 package com.its.board.controller;
 
 import com.its.board.dto.BoardDTO;
+import com.its.board.dto.PageDTO;
 import com.its.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,21 +50,33 @@ public class BoardController {
 
     }
 
-
+    // 페이징목록
+    @GetMapping("/paging")
+    public String paging(Model model, @RequestParam(value = "page",required = false,defaultValue = "1") int page){
+      // 해당 페이지에서 보여줄 글 목록
+        List<BoardDTO> pagingList = boardService.pagingList(page);
+       //하단 페이지 번호 표현을 위한 데이터
+      PageDTO pageDTO = boardService.pagingParam(page);
+       model.addAttribute("boardList",pagingList);
+        model.addAttribute("paging",pageDTO);
+//        System.out.println("model = " + model + ", page = " + page);
+      return "boardPages/boardPaging" ;
+    }
 
 
 
              // 상세조회: /board?id=  겟맵핑만 사용
        @GetMapping
-       public String findById(@RequestParam("id")  Long id,
-//                               @RequestParam("hits") int hits,
-                               Model model){
+       public String findById(@RequestParam("id")  Long id, Model model,
+//
+                              @RequestParam(value = "page",required = false,defaultValue = "1") int page){
 //        boardService.updateHit(num);
 //           int  hits = hits +1;
 
           boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board",boardDTO);
+        model.addAttribute("page",page);
 
 
 
